@@ -995,7 +995,7 @@ class ManagementModule(ServerModule):
         # Attempt renewal now.
         # For now support only simple use cases. E.g., LetsEncrypt renewal.
         # LE Renewal: call Certbot, fetch new certificate from the cert store, deploy later.
-        # LE certbot should run on the agent. For now on the master directly.
+        # LE certbot should run on the agent. For now on the main directly.
         job.target = s.merge(job.target)
         pki_type = job.target.svc_ca.pki_type if job.target.svc_ca is not None else None
 
@@ -1136,7 +1136,7 @@ class ManagementModule(ServerModule):
         # Signalize event - new certificate
         self.events.on_renewed_certificate(leaf_cert, job, new_managed_cert)
 
-        # TODO: In the agent - signalize this event to the master, attach new certificate & privkey
+        # TODO: In the agent - signalize this event to the main, attach new certificate & privkey
         pass
 
         # Trigger tests - set last scan to null

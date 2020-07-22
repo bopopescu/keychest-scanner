@@ -94,7 +94,7 @@ class ServerAgent(ServerModule):
         if not self.agent_mode():
             return  # just safety check not to do mess in the database
 
-        logger.debug('Master endpoint: %s' % self.config.master_endpoint)
+        logger.debug('Main endpoint: %s' % self.config.main_endpoint)
 
         s = None
         try:
@@ -150,7 +150,7 @@ class ServerAgent(ServerModule):
             user = DbUser()
             user.id = 1
             user.name = 'PLACEHOLDER'
-            user.email = 'local@master.net'
+            user.email = 'local@main.net'
             user.primary_owner_id = owner.id
             user.created_at = user.updated_at = salch.func.now()
             s.add(user)
@@ -167,7 +167,7 @@ class ServerAgent(ServerModule):
 
     def _agent_request_get(self, url, **kwds):
         """
-        GET request to the master
+        GET request to the main
         :param url:
         :param kwds:
         :return:
@@ -176,7 +176,7 @@ class ServerAgent(ServerModule):
 
     def _agent_request_post(self, url, **kwds):
         """
-        POST request to the master
+        POST request to the main
         :param url:
         :param kwds:
         :return:
@@ -192,7 +192,7 @@ class ServerAgent(ServerModule):
         :return:
         """
         headers = kwds.get('headers', {})
-        headers['X-Auth-API'] = self.config.master_apikey
+        headers['X-Auth-API'] = self.config.main_apikey
 
         kwds['headers'] = headers
         kwds.setdefault('timeout', 10)
@@ -200,18 +200,18 @@ class ServerAgent(ServerModule):
         attempts = kwds.get('attempts', 3)
         for attempt in range(attempts):
             try:
-                r = requests.request(method=method, url=self.config.master_endpoint + url, **kwds)
+                r = requests.request(method=method, url=self.config.main_endpoint + url, **kwds)
                 r.raise_for_status()
                 return r
 
             except Exception as e:
-                logger.info('Exception in master request %s: %s' % (url, e))
+                logger.info('Exception in main request %s: %s' % (url, e))
                 if attempt + 1 >= attempts:
                     raise
 
     def agent_sync_hosts(self, s):
         """
-        Syncs hosts with the master by calling get hosts method and syncing
+        Syncs hosts with the main by calling get hosts method and syncing
         :param s:
         :return:
         """
@@ -222,7 +222,7 @@ class ServerAgent(ServerModule):
 
     def agent_merge_hosts(self, s, targets):
         """
-        Merges loaded hosts from the master
+        Merges loaded hosts from the main
         :return:
         """
         allowed_ids = []
@@ -306,7 +306,7 @@ class ServerAgent(ServerModule):
 
     def agent_sync_hosts_main(self):
         """
-        Main thread for hosts sync with the master
+        Main thread for hosts sync with the main
         :return:
         """
         logger.info('Agent host sync thread started %s %s %s' % (os.getpid(), os.getppid(), threading.current_thread()))
@@ -341,7 +341,7 @@ class ServerAgent(ServerModule):
 
     def agent_publisher_main(self):
         """
-        Main thread publishing results to the master
+        Main thread publishing results to the main
         :return:
         """
         logger.info('Agent publish thread started %s %s %s' % (os.getpid(), os.getppid(), threading.current_thread()))
@@ -379,7 +379,7 @@ class ServerAgent(ServerModule):
         Main publish entry point
         :return:
         """
-        # TODO: fetch all last scans from the master, load all scans greater than those provided and publish
+        # TODO: fetch all last scans from the main, load all scans greater than those provided and publish
         # TODO    missing first. Then process queue with new scans - ignore those already being sent.
 
         # Queue processing
@@ -444,7 +444,7 @@ class ServerAgent(ServerModule):
 
     def agent_dictize_scan(self, s, obj):
         """
-        Converts a scan to a dict serializable over the channel to the master
+        Converts a scan to a dict serializable over the channel to the main
         :param s:
         :param obj:
         :return:

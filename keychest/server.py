@@ -235,8 +235,8 @@ class Server(object):
             raise ValueError('Invalid start arguments')
 
         self.agent_mode = self.config.agent_mode
-        if self.agent_mode and util.is_empty(self.config.master_endpoint):
-            raise ValueError('Master endpoint is required in agent mode')
+        if self.agent_mode and util.is_empty(self.config.main_endpoint):
+            raise ValueError('Main endpoint is required in agent mode')
 
     def init_log(self):
         """
@@ -4065,13 +4065,13 @@ class Server(object):
         # executes all modules kick off
         self.run_modules()
 
-        # REST server needed only for master mode for now (may be changed in future).
+        # REST server needed only for main mode for now (may be changed in future).
         # Init agent mode if needed.
         if self.agent_mode:
             logger.info(' ==== Keychest scanner running in the Agent mode ==== ')
             self.mod_agent.init_agent()
         else:
-            logger.info(' ==== Keychest scanner running in the Master mode ==== ')
+            logger.info(' ==== Keychest scanner running in the Main mode ==== ')
             self.init_api()
 
         # Daemon vs. run mode.

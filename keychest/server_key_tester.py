@@ -436,7 +436,7 @@ class KeyTester(ServerModule):
             js = keys_tools.process_pgp(data)
 
             idset = set()
-            for x in detect.drop_none([js['master_key_id']] + js['signature_keys']):
+            for x in detect.drop_none([js['main_key_id']] + js['signature_keys']):
                 idset.add(x)
 
             for key in list(idset)[:4]:

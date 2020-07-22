@@ -673,7 +673,7 @@ class DbLastScanCache(Base):
     Last scan cache - in order to avoid complicated sub-queries.
 
     Mapping table optimizes searching for the most recent scan for the given object.
-    Caches the recent scans, helps to keep data in sync in the master - agent environment.
+    Caches the recent scans, helps to keep data in sync in the main - agent environment.
     """
     __tablename__ = 'last_scan_cache'
     __table_args__ = (UniqueConstraint('cache_type', 'obj_id', 'scan_type', 'scan_sub_type', 'aux_key',
@@ -962,7 +962,7 @@ class DbOrganizationGroup(Base):
 
 class DbKeychestAgent(Base):
     """
-    Keychest agent record - identifies particular keychest slave instance
+    Keychest agent record - identifies particular keychest subordinate instance
     """
     __tablename__ = 'keychest_agent'
     id = Column(BigInteger, primary_key=True)

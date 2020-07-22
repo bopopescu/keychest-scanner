@@ -92,16 +92,16 @@ def process_pgp(data):
     pgp_key_data = AsciiData(data)
     packets = list(pgp_key_data.packets())
 
-    master_fprint = None
-    master_key_id = None
+    main_fprint = None
+    main_key_id = None
     identities = []
     pubkeys = []
     sign_key_ids = []
     sig_cnt = 0
     for idx, packet in enumerate(packets):
         if isinstance(packet, PublicKeyPacket):
-            master_fprint = packet.fingerprint
-            master_key_id = detect.format_pgp_key(packet.key_id)
+            main_fprint = packet.fingerprint
+            main_key_id = detect.format_pgp_key(packet.key_id)
             pubkeys.append(packet)
         elif isinstance(packet, PublicSubkeyPacket):
             pubkeys.append(packet)
@@ -124,8 +124,8 @@ def process_pgp(data):
             identity = '%s <%s>' % (packet.user_name, packet.user_email)
 
     js_base['type'] = 'pgp'
-    js_base['master_fprint'] = master_fprint
-    js_base['master_key_id'] = master_key_id
+    js_base['main_fprint'] = main_fprint
+    js_base['main_key_id'] = main_key_id
     js_base['identities'] = ids_arr
     js_base['signatures_count'] = sig_cnt
     js_base['packets_count'] = len(packets)

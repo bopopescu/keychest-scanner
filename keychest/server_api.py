@@ -454,7 +454,7 @@ class RestAPI(object):
         Client then should ask for last scan IDs and push all missing ones.
 
         To make it simple for now we skip this check by client passing data.json['sorry'] = 1.
-        This also has a legitimate use when agent just does not have last scan as master desires.
+        This also has a legitimate use when agent just does not have last scan as main desires.
 
         One request should contain scans only for one hosts so rejection affects only the single host.
 

@@ -46,8 +46,8 @@ class Config(object):
         def_cfg['keychest_max_servers'] = 1000
         def_cfg['enable_rest_api'] = False
         def_cfg['agent_mode'] = False
-        def_cfg['master_endpoint'] = None
-        def_cfg['master_apikey'] = None
+        def_cfg['main_endpoint'] = None
+        def_cfg['main_apikey'] = None
 
         root = collections.OrderedDict()
         root['config'] = def_cfg
@@ -164,23 +164,23 @@ class Config(object):
     def agent_mode(self, val):
         self.set_config('agent_mode', val)
 
-    # master node endpoint
+    # main node endpoint
     @property
-    def master_endpoint(self):
-        return self.get_config('master_endpoint', None)
+    def main_endpoint(self):
+        return self.get_config('main_endpoint', None)
 
-    @master_endpoint.setter
-    def master_endpoint(self, val):
-        self.set_config('master_endpoint', val)
+    @main_endpoint.setter
+    def main_endpoint(self, val):
+        self.set_config('main_endpoint', val)
 
-    # API key for master
+    # API key for main
     @property
-    def master_apikey(self):
-        return self.get_config('master_apikey', None)
+    def main_apikey(self):
+        return self.get_config('main_apikey', None)
 
-    @master_apikey.setter
-    def master_apikey(self, val):
-        self.set_config('master_apikey', val)
+    @main_apikey.setter
+    def main_apikey(self, val):
+        self.set_config('main_apikey', val)
 
     # Workers - key test scanner
     @property

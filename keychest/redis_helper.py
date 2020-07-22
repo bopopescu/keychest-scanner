@@ -253,7 +253,7 @@ def default_envelope(listener_name='App\\Listeners\\ScanJobListener',
 
 def scan_job_progress(data=None):
     """
-    Returns event wrapped in the master event envelope
+    Returns event wrapped in the main event envelope
     :param data: 
     :return: 
     """
@@ -266,7 +266,7 @@ def scan_job_progress(data=None):
 
 def tester_job_progress(data=None):
     """
-    Returns event wrapped in the master event envelope
+    Returns event wrapped in the main event envelope
 
     :param data:
     :return:

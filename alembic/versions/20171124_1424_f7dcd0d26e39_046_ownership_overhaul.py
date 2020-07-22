@@ -83,7 +83,7 @@ class DbUserToOwner(Base):
 
 class DbKeychestAgent(Base):
     """
-    Keychest agent record - identifies particular keychest slave instance
+    Keychest agent record - identifies particular keychest subordinate instance
     """
     __tablename__ = 'keychest_agent'
     id = Column(BigInteger, primary_key=True)
